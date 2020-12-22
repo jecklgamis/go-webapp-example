@@ -1,6 +1,6 @@
 ## go-api-server-template
 
-This is a an example API server app using [Gorilla Mux](https://github.com/gorilla/mux).
+This is a an example HTTP API server app using [Gorilla Mux](https://github.com/gorilla/mux).
 
 Features:
 * Serves /buildInfo - server build info
@@ -9,6 +9,8 @@ Features:
 * Creates Docker container image based on Ubuntu
 
 ## Building
+Ensure you have proper Go toolchain installed:
+
 Install `mux`:
 ```
 go get -u github.com/gorilla/mux
@@ -30,9 +32,9 @@ Start the server on port `8080`:
 ```
 $ bin/server -port 8080
 ```
-Run Docker container:
+To run using Docker container, do :
 ```
-make run
+make up
 ```
 
 ## Testing EndPoints
