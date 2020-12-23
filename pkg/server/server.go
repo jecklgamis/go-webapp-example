@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	handler "github.com/jecklgamis/go-api-server-template/pkg/server/handler"
+	middleware "github.com/jecklgamis/go-api-server-template/pkg/server/middleware"
 	"github.com/jecklgamis/go-api-server-template/pkg/version"
 	"log"
 	"net/http"
@@ -17,6 +18,7 @@ func Start(port int) {
 	router.HandleFunc("/probe/live", handler.LivenessProbeHandler)
 	router.HandleFunc("/api", handler.ApiHandler)
 	router.HandleFunc("/", handler.RootHandler)
+	router.Use(middleware.AccessLoggerMiddleware)
 
 	addr := fmt.Sprintf("0.0.0.0:%d", port)
 
