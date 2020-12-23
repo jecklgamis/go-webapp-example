@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	handler "github.com/jecklgamis/go-api-server-template/pkg/server/handler"
+	"github.com/jecklgamis/go-api-server-template/pkg/version"
 	"log"
 	"net/http"
 	"time"
@@ -20,6 +21,7 @@ func Start(port int) {
 	addr := fmt.Sprintf("0.0.0.0:%d", port)
 
 	fmt.Printf("Starting API server on  %s\n", addr)
+	fmt.Printf("Version: %s\n", version.BuildVersion)
 	srv := &http.Server{
 		Handler:      router,
 		Addr:         addr,

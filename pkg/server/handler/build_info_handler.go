@@ -3,12 +3,13 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/jecklgamis/go-api-server-template/pkg/version"
 	"net/http"
 )
 
 func BuildInfoHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"name": "go-api-server-template",
-		"version": "some-git-commit-id", "branch": "some-git-branch"})
+		"version": version.BuildVersion, "branch": version.BuildBranch})
 	fmt.Fprintf(w, "{}")
 }
