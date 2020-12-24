@@ -46,4 +46,15 @@ curl -v -X GET  http://localhost:8080/probe/live
 curl -v -X GET  http://localhost:8080/api
 ```
 
+## Developing
+The `reloader` dir contains some helper scripts for auto building the app on file changes. It depends on `fswatch`.
+
+Install `fswatch` (Mac OS X using Homebrew):
+````
+brew install fswatch
+````
+Run the app:
+```
+./reloader/reloader.sh
+```
 
