@@ -8,6 +8,7 @@ function sigint_handler() {
 
 trap 'sigint_handler' SIGINT
 
+${SCRIPT_DIR}/build-app.sh
 ${SCRIPT_DIR}/kill-app.sh
 ${SCRIPT_DIR}/run-app.sh
 fswatch -o pkg -o cmd | xargs -n1 -I{} sh -c "${SCRIPT_DIR}/build-app.sh && ${SCRIPT_DIR}/kill-app.sh && ${SCRIPT_DIR}/run-app.sh"
