@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 )
 
@@ -10,7 +11,7 @@ func AccessLoggerMiddleware(next http.Handler) http.Handler {
 		accessLog := map[string]string{"host": r.Host,
 			"method": r.Method, "uri_path": r.RequestURI, "protocol": r.Proto}
 		bytes, _ := json.Marshal(accessLog)
-		println(string(bytes))
+		log.Println(string(bytes))
 		next.ServeHTTP(w, r)
 	})
 }
