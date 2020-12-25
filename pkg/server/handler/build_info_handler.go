@@ -7,6 +7,7 @@ import (
 )
 
 func BuildInfoHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{"name": "go-api-server-template",
 		"version": version.BuildVersion, "branch": version.BuildBranch})

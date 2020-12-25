@@ -6,7 +6,7 @@ BUILD_VERSION:=$(shell git rev-parse HEAD)
 default:
 	cat ./Makefile
 
-dist:  server ssl-certs
+dist: clean test server ssl-certs
 image:
 	docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
 run:
@@ -33,3 +33,5 @@ clean:
 	rm -f bin/*
 ssl-certs:
 	./generate-ssl-certs.sh
+test:
+	go test ./...
