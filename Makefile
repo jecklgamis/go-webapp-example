@@ -12,7 +12,7 @@ image:
 run:
 	docker run -p 8080:8080 -p 8443:8443 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
 run-dev-mode:
-	./reloader/reloader.sh
+	./rebuilder/rebuilder.sh
 run-bash:
 	docker run -i -t $(IMAGE_NAME)/$(IMAGE_TAG) /bin/bash
 login:

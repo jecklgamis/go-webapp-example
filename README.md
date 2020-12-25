@@ -49,7 +49,7 @@ curl -v -X GET  http://localhost:8080/api
 ```
 
 ## Developing
-The `reloader` dir contains helper scripts for automatically building the app on file changes. It depends on `fswatch`for 
+The `rebuilder` dir contains helper scripts for automatically building the app on file changes. It depends on `fswatch`for 
 detecting file system changes in `pkg` and `cmd` directory.
 
 Install `fswatch` (Mac OS X):
@@ -57,9 +57,9 @@ Install `fswatch` (Mac OS X):
 brew install fswatch
 ````
 
-Run the reloader:
+Run the rebuilder:
 ```
-./reloader/reloader.sh
+./rebuilder/rebuilder.sh
 ```
 
 ## Configuration
