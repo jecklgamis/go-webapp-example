@@ -49,7 +49,7 @@ curl -v -X GET  http://localhost:8080/api
 ```
 
 ## Developing
-The `reloader` dir contains helper scripts for auto building the app on file changes. It depends on `fswatch`for 
+The `reloader` dir contains helper scripts for automatically building the app on file changes. It depends on `fswatch`for 
 detecting file system changes in `pkg` and `cmd` directory.
 
 Install `fswatch` (Mac OS X):
@@ -64,4 +64,4 @@ Run the reloader:
 
 ## Configuration
 The `config/config-<env>.yml` contains the environment specific configuration. The config file is selected  based on 
-the `APP_ENVIRONMENT` environment variable and is `dev` by default.
+the `APP_ENVIRONMENT` variable and is `dev` by default.
