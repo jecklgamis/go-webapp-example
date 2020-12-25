@@ -1,5 +1,7 @@
-#!/usr/local/bin/bash
-curl -X GET http://localhost:8080/
-curl -X GET http://localhost:8080/probe/ready
-curl -X GET http://localhost:8080/probe/live
-curl -X GET http://localhost:8080/buildInfo
+#!/usr/bin/env bash
+BASE_URL="http://localhost:8080"
+curl ${BASE_URL}/buildInfo
+curl ${BASE_URL}/probe/ready
+curl ${BASE_URL}/probe/live
+curl ${BASE_URL}/api
+curl ${BASE_URL}

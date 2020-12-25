@@ -1,26 +1,28 @@
 ## go-api-server-template
 
-This is a an example HTTP API server app using [Gorilla Mux](https://github.com/gorilla/mux).
+This is an HTTP API server template app written in Go.
 
 Features:
-* Serves /buildInfo - server build info
-* Serves /probe/ready  - readiness probe
-* Serves /probe/live  - liveness probe
+* Uses [gorilla mux](https://github.com/gorilla/mux) request router
+* Uses [spf13/viper](https://github.com/spf13/viper) for config management
 * Creates Docker container image based on Ubuntu
+* Serves /buildInfo - Server build info
+* Serves /probe/ready  - Readiness probe
+* Serves /probe/live  - Liveness probe
+* Starts HTTP/HTTPS listeners
+
+## Requirements
+* Go toolchain
+* Docker
+* Make
 
 ## Building
-Ensure you have proper Go toolchain installed:
-
-Install `mux`:
-```
-go get -u github.com/gorilla/mux
-```
-
 Build the app:
 ```
 make dist
 ```
-This will build two binaries, one for the current OS you're building on and one for Linux AMD64 platform.
+This will build two binaries in `bin` directory, one for the current OS you're building on and one for Linux 
+AMD64 platform for the Docker image. This will also generate self-signed certificates.
 
 Build Docker image:
 ```
@@ -28,11 +30,11 @@ make image
 ```
 
 ## Running
-Start the server on port `8080`:
+Start the server using the native binary:
 ```
-$ bin/server -port 8080
+$ bin/server
 ```
-To run using Docker container, do :
+Start the server using Docker container:
 ```
 make up
 ```
@@ -47,14 +49,19 @@ curl -v -X GET  http://localhost:8080/api
 ```
 
 ## Developing
-The `reloader` dir contains some helper scripts for auto building the app on file changes. It depends on `fswatch`.
+The `reloader` dir contains helper scripts for auto building the app on file changes. It depends on `fswatch`for 
+detecting file system changes in `pkg` and `cmd` directory.
 
-Install `fswatch` (Mac OS X using Homebrew):
+Install `fswatch` (Mac OS X):
 ````
 brew install fswatch
 ````
-Run the app:
+
+Run the reloader:
 ```
 ./reloader/reloader.sh
 ```
 
+## Configuration
+The `config/config-<env>.yml` contains the environment specific configuration. The config file is selected  based on 
+the `APP_ENVIRONMENT` environment variable and is `dev` by default.

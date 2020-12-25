@@ -11,7 +11,9 @@ import (
 	"time"
 )
 
-func Start(port int) {
+func Start() {
+	env := GetEnvOrElse("APP_ENVIRONMENT", "dev")
+	config := ReadConfig(env)
 	router := mux.NewRouter()
 	router.HandleFunc("/buildInfo", handler.BuildInfoHandler)
 	router.HandleFunc("/probe/ready", handler.ReadinessProbeHandler)
@@ -20,16 +22,34 @@ func Start(port int) {
 	router.HandleFunc("/", handler.RootHandler)
 	router.Use(middleware.AccessLoggerMiddleware)
 
-	addr := fmt.Sprintf("0.0.0.0:%d", port)
-
-	fmt.Printf("Starting API server on  %s\n", addr)
-	fmt.Printf("Version: %s\n", version.BuildVersion)
-	srv := &http.Server{
-		Handler:      router,
-		Addr:         addr,
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+	if config.Server.Https != nil {
+		go func() {
+			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.Https.Port)
+			fmt.Printf("Starting HTTPS server on %s\n", addr)
+			srv := &http.Server{
+				Handler:      router,
+				Addr:         addr,
+				WriteTimeout: 15 * time.Second,
+				ReadTimeout:  15 * time.Second,
+			}
+			log.Fatal(srv.ListenAndServeTLS(config.Server.Https.CertFile, config.Server.Https.KeyFile))
+		}()
 	}
-
-	log.Fatal(srv.ListenAndServe())
+	if config.Server.Http != nil {
+		go func() {
+			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.Http.Port)
+			fmt.Printf("Starting HTTP server on %s\n", addr)
+			srv := &http.Server{
+				Handler:      router,
+				Addr:         addr,
+				WriteTimeout: 15 * time.Second,
+				ReadTimeout:  15 * time.Second,
+			}
+			log.Fatal(srv.ListenAndServe())
+			fmt.Printf("Version: %s\n", version.BuildVersion)
+		}()
+	}
+	for {
+		time.Sleep(time.Second)
+	}
 }

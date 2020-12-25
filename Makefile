@@ -6,11 +6,13 @@ BUILD_VERSION:=$(shell git rev-parse HEAD)
 default:
 	cat ./Makefile
 
-dist:  server
+dist:  server ssl-certs
 image:
 	docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
 run:
-	docker run -p 8080:8080 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
+	docker run -p 8080:8080 -p 8443:8443 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
+run-dev-mode:
+	./reloader/reloader.sh
 run-bash:
 	docker run -i -t $(IMAGE_NAME)/$(IMAGE_TAG) /bin/bash
 login:
@@ -19,17 +21,15 @@ up: clean dist image run
 
 install-deps:
 	go get -u github.com/gorilla/mux
-
 LD_FLAGS:="-X github.com/jecklgamis/go-api-server-template/pkg/version.BuildVersion=$(BUILD_VERSION) \
 		  -X github.com/jecklgamis/go-api-server-template/pkg/version.BuildBranch=$(BUILD_BRANCH)"
 server: server-linux-amd64
-	echo "$()LD_FLAGS)"
 	go build -ldflags $(LD_FLAGS) -o bin/server cmd/server/server.go
-	@chmod +x bin/server
-
+	chmod +x bin/server
 server-linux-amd64:
 	GOOS=linux GOARCH=amd64 go build -ldflags $(LD_FLAGS) -o bin/server-linux-amd64 cmd/server/server.go
-	@chmod +x bin/server-linux-amd64
-
+	chmod +x bin/server-linux-amd64
 clean:
-	@rm -f bin/*
+	rm -f bin/*
+ssl-certs:
+	./generate-ssl-certs.sh
