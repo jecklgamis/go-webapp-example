@@ -25,7 +25,7 @@ func Start() {
 	if config.Server.Https != nil {
 		go func() {
 			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.Https.Port)
-			fmt.Printf("Starting HTTPS server on %s\n", addr)
+			log.Printf("Starting HTTPS server on %s\n", addr)
 			srv := &http.Server{
 				Handler:      router,
 				Addr:         addr,
@@ -38,7 +38,7 @@ func Start() {
 	if config.Server.Http != nil {
 		go func() {
 			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.Http.Port)
-			fmt.Printf("Starting HTTP server on %s\n", addr)
+			log.Printf("Starting HTTP server on %s\n", addr)
 			srv := &http.Server{
 				Handler:      router,
 				Addr:         addr,
@@ -46,7 +46,7 @@ func Start() {
 				ReadTimeout:  15 * time.Second,
 			}
 			log.Fatal(srv.ListenAndServe())
-			fmt.Printf("Version: %s\n", version.BuildVersion)
+			log.Printf("Version: %s\n", version.BuildVersion)
 		}()
 	}
 	for {
