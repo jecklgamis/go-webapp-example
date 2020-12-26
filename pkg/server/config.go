@@ -34,12 +34,12 @@ func ReadConfig(env string) *Config {
 	viper.AddConfigPath("config")
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Panic(fmt.Errorf("Unable to read config file: %s\n", err))
+		log.Fatalf("Unable to read config file: %s\n", err)
 	}
 	config := &Config{}
 	err = viper.Unmarshal(config)
 	if err != nil {
-		log.Panic(fmt.Errorf("Unable to unmarshall config file: %s\n", err))
+		log.Fatalf("Unable to umarshalle config file: %s\n", err)
 	}
 	return config
 }
