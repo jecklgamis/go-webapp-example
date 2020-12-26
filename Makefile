@@ -21,9 +21,11 @@ install-deps:
 LD_FLAGS:="-X github.com/jecklgamis/go-api-server-template/pkg/version.BuildVersion=$(BUILD_VERSION) \
 		  -X github.com/jecklgamis/go-api-server-template/pkg/version.BuildBranch=$(BUILD_BRANCH)"
 server: server-linux-amd64
+	@echo "Building $@"
 	@go build -ldflags $(LD_FLAGS) -o bin/server cmd/server/server.go
 	@chmod +x bin/server
 server-linux-amd64:
+	@echo "Building $@"
 	@GOOS=linux GOARCH=amd64 go build -ldflags $(LD_FLAGS) -o bin/server-linux-amd64 cmd/server/server.go
 	@chmod +x bin/server-linux-amd64
 clean:
