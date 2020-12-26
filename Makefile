@@ -4,22 +4,20 @@ BUILD_BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
 BUILD_VERSION:=$(shell git rev-parse HEAD)
 
 default:
-	cat ./Makefile
+	@cat ./Makefile
 
 dist: clean test server ssl-certs
 up: dist image run
-
 image:
-	docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
+	@docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
 run:
-	docker run -p 8080:8080 -p 8443:8443 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
+	@docker run -p 8080:8080 -p 8443:8443 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
 run-bash:
 	@docker run -i -t $(IMAGE_NAME)/$(IMAGE_TAG) /bin/bash
 login:
 	@docker exec -it `docker ps | grep $(IMAGE_NAME) | awk '{print $$1}'` /bin/bash
-
 install-deps:
-	go get -u github.com/gorilla/mux
+	@go get -u github.com/gorilla/mux
 LD_FLAGS:="-X github.com/jecklgamis/go-api-server-template/pkg/version.BuildVersion=$(BUILD_VERSION) \
 		  -X github.com/jecklgamis/go-api-server-template/pkg/version.BuildBranch=$(BUILD_BRANCH)"
 server: server-linux-amd64

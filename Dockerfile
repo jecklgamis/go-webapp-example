@@ -6,6 +6,8 @@ RUN apt-get update -y
 ENV APP_ENVIRONMENT dev
 
 EXPOSE 8080
+EXPOSE 8443
+
 RUN mkdir -p /app/bin
 RUN mkdir -p /app/config
 
