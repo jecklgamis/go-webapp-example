@@ -8,7 +8,7 @@ Features:
 * Creates Docker container image based on Ubuntu
 * Contains /buildInfo, /probe/ready, /probe/live handlers  
 * Starts HTTP/HTTPS listeners
-* Uses YAML format environment specific config
+* Uses environment specific config in YAML format
 
 ## Requirements
 * [Golang Toolchain](https://golang.org/doc/install)
@@ -24,7 +24,7 @@ This will:
 * Build server binaries in `bin`
 * Build Docker image
 
-Explore the `Makefile` or simply type `make` in the current directory for commonly tasks.
+Explore the `Makefile` or simply type `make` in the current directory for commonly used tasks.
 
 ## Running
 Run the server using the native binary:
@@ -90,7 +90,7 @@ import (
 
 ## Navigating The Sources
 * Program execution starts from `cmd/server/server.go`, it then starts  the server in `pkg/server/server.go`
-* `server.go` loads configuration the environment files under `config`.
+* `server.go` loads environment-specific configuration under `config`.
 
 ## Contributing
 Sure, send pull request?
