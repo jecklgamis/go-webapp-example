@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// AccessLoggerMiddleware logs incoming HTTP request info
 func AccessLoggerMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		accessLog := map[string]string{"host": r.Host,

@@ -11,32 +11,34 @@ import (
 	"time"
 )
 
-func displayRoutes(router *mux.Router) {
+func printRoutes(router *mux.Router) {
 	log.Println("Below are the configured endpoints")
 	_ = router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
 		template, err := route.GetPathTemplate()
+		methods, _ := route.GetMethods()
 		if err == nil {
-			log.Println(template)
+			log.Printf("%s %s\n", methods, template)
 		}
 		return nil
 	})
 }
 
+// Start starts the HTTP server
 func Start() {
 	env := GetEnvOrElse("APP_ENVIRONMENT", "dev")
 	config := ReadConfig(env)
 	router := mux.NewRouter()
-	router.HandleFunc("/buildInfo", handler.BuildInfoHandler)
-	router.HandleFunc("/probe/ready", handler.ReadinessProbeHandler)
-	router.HandleFunc("/probe/live", handler.LivenessProbeHandler)
-	router.HandleFunc("/api", handler.ApiHandler)
-	router.HandleFunc("/", handler.RootHandler)
+	router.HandleFunc("/buildInfo", handler.BuildInfoHandler).Methods(http.MethodGet)
+	router.HandleFunc("/probe/ready", handler.ReadinessProbeHandler).Methods(http.MethodGet)
+	router.HandleFunc("/probe/live", handler.LivenessProbeHandler).Methods(http.MethodGet)
+	router.HandleFunc("/api", handler.APIHandler).Methods(http.MethodGet, http.MethodPost)
+	router.HandleFunc("/", handler.RootHandler).Methods(http.MethodGet)
 	router.Use(middleware.AccessLoggerMiddleware)
-	displayRoutes(router)
+	printRoutes(router)
 
-	if config.Server.Https != nil {
+	if config.Server.HTTPS != nil {
 		go func() {
-			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.Https.Port)
+			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.HTTPS.Port)
 			log.Printf("Starting HTTPS server on %s\n", addr)
 			srv := &http.Server{
 				Handler:      router,
@@ -44,12 +46,12 @@ func Start() {
 				WriteTimeout: 15 * time.Second,
 				ReadTimeout:  15 * time.Second,
 			}
-			log.Fatal(srv.ListenAndServeTLS(config.Server.Https.CertFile, config.Server.Https.KeyFile))
+			log.Fatal(srv.ListenAndServeTLS(config.Server.HTTPS.CertFile, config.Server.HTTPS.KeyFile))
 		}()
 	}
-	if config.Server.Http != nil {
+	if config.Server.HTTP != nil {
 		go func() {
-			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.Http.Port)
+			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.HTTP.Port)
 			log.Printf("Starting HTTP server on %s\n", addr)
 			srv := &http.Server{
 				Handler:      router,

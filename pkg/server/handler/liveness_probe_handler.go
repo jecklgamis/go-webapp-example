@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// LivenessProbeHandler handles the /probe/live endpoint
 func LivenessProbeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

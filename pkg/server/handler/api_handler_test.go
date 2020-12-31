@@ -14,7 +14,7 @@ func TestApiHandler(t *testing.T) {
 	test.Assert(t, err == nil, "Unable to create request")
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(ApiHandler)
+	handler := http.HandlerFunc(APIHandler)
 	handler.ServeHTTP(rr, req)
 	test.Assert(t, rr.Code == http.StatusOK, "Unexpected status code")
 	test.Assert(t, rr.Header().Get("Content-Type") == "application/json",

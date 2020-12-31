@@ -7,25 +7,31 @@ import (
 )
 import "github.com/spf13/viper"
 
-type HttpServerConfig struct {
+// HTTPServerConfig stores HTTP server specific config
+type HTTPServerConfig struct {
 	Port int
 }
 
-type HttpsServerConfig struct {
+// HTTPSServerConfig stores HTTPS server specific config
+type HTTPSServerConfig struct {
 	Port     int
 	KeyFile  string
 	CertFile string
 }
 
-type ServerConfig struct {
-	Http  *HttpServerConfig
-	Https *HttpsServerConfig
+// ListenerConfig stores HTTP or HTTPS server config
+type ListenerConfig struct {
+	HTTP  *HTTPServerConfig
+	HTTPS *HTTPSServerConfig
 }
 
+// Config store the main application configuration
 type Config struct {
-	Server *ServerConfig
+	Server   *ListenerConfig
+	Metadata map[string]string
 }
 
+// ReadConfig loads the environment-specific configuration in config directory
 func ReadConfig(env string) *Config {
 	configFile := fmt.Sprintf("config-%s.yaml", env)
 	log.Printf("Loading %s\n", configFile)
@@ -39,11 +45,12 @@ func ReadConfig(env string) *Config {
 	config := &Config{}
 	err = viper.Unmarshal(config)
 	if err != nil {
-		log.Fatalf("Unable to umarshalle config file: %s\n", err)
+		log.Fatalf("Unable to umarshall config file: %s\n", err)
 	}
 	return config
 }
 
+// GetEnvOrElse retrieves the value of environment variable or fallback if it does not exist
 func GetEnvOrElse(key, fallback string) string {
 	value := os.Getenv(key)
 	if len(value) == 0 {

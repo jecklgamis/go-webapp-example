@@ -6,7 +6,7 @@ BUILD_VERSION:=$(shell git rev-parse HEAD)
 default:
 	@cat ./Makefile
 
-dist: clean test server ssl-certs
+dist: lint clean test server ssl-certs
 up: dist image run
 image:
 	@docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
@@ -38,3 +38,5 @@ test:
 	@go test ./...
 run-rebuilder:
 	@./rebuilder/rebuilder.sh
+lint:
+	@./linter.sh

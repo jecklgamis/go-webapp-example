@@ -21,6 +21,7 @@ function sigint_handler() {
 trap 'sigint_handler' SIGINT
 
 check_binaries
+${SCRIPT_DIR}/test-app.sh
 ${SCRIPT_DIR}/build-app.sh
 ${SCRIPT_DIR}/kill-app.sh
 ${SCRIPT_DIR}/run-app.sh
