@@ -4,8 +4,18 @@ BUILD_BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
 BUILD_VERSION:=$(shell git rev-parse HEAD)
 
 default:
-	@cat ./Makefile
-
+	@echo "Make targets"
+	@echo "make dist - build app binaries"
+	@echo "make image - build Docker image"
+	@echo "make run - run Docker image"
+	@echo "make up - Build and run Docker image"
+	@echo "make login - attach /bin/bash shell to a runnning Docker container"
+	@echo "make run-rebuilder - build app automatically on file changes"
+	@echo "make clean - delete built artifacts"
+	@echo "make test - run tests"
+	@echo "make lint - run linter"
+	@echo "make ssl-certs - generate self-signed certificates"
+	@echo "See Makefile for details or to add your own target"
 dist: lint clean test server ssl-certs
 up: dist image run
 image:
@@ -17,7 +27,8 @@ run-bash:
 login:
 	@docker exec -it `docker ps | grep $(IMAGE_NAME) | awk '{print $$1}'` /bin/bash
 install-deps:
-	@go get -u github.com/gorilla/mux
+	@@go get -u github.com/gorilla/mux
+	@go get -u golang.org/x/lint/golint
 LD_FLAGS:="-X github.com/jecklgamis/go-api-server-template/pkg/version.BuildVersion=$(BUILD_VERSION) \
 		  -X github.com/jecklgamis/go-api-server-template/pkg/version.BuildBranch=$(BUILD_BRANCH)"
 server: server-linux-amd64
