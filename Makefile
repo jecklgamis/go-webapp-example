@@ -8,7 +8,7 @@ default:
 	@echo "make dist - build app binaries"
 	@echo "make image - build Docker image"
 	@echo "make run - run Docker image"
-	@echo "make up - Build and run Docker image"
+	@echo "make up - build and run Docker image"
 	@echo "make login - attach /bin/bash shell to a runnning Docker container"
 	@echo "make run-rebuilder - build app automatically on file changes"
 	@echo "make clean - delete built artifacts"

@@ -12,7 +12,7 @@ import (
 )
 
 func printRoutes(router *mux.Router) {
-	log.Println("Below are the configured endpoints")
+	log.Println("Below are the available endpoints:")
 	_ = router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
 		template, err := route.GetPathTemplate()
 		methods, _ := route.GetMethods()
