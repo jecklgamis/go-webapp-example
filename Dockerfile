@@ -9,12 +9,12 @@ EXPOSE 8080
 EXPOSE 8443
 
 RUN mkdir -p /app/bin
-RUN mkdir -p /app/config
+RUN mkdir -p /app/configs
 
 COPY bin/server-linux-amd64 /app/bin/server
 RUN  chmod +x /app/bin/*
 
-COPY configs /app/config
+COPY configs /app/configs
 COPY server.key /app
 COPY server.crt /app
 
