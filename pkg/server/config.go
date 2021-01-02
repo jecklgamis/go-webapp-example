@@ -37,7 +37,7 @@ func ReadConfig(env string) *Config {
 	log.Printf("Loading %s\n", configFile)
 	viper.SetConfigName(configFile)
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("config")
+	viper.AddConfigPath("configs")
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Fatalf("Unable to read config file: %s\n", err)

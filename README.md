@@ -73,7 +73,7 @@ brew install fswatch
 
 Run the rebuilder:
 ```
-make run-rebuilder
+make rebuilder
 ```
 
 

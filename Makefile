@@ -4,13 +4,13 @@ BUILD_BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
 BUILD_VERSION:=$(shell git rev-parse HEAD)
 
 default:
-	@echo "Make targets"
+	@echo "Makefile targets"
 	@echo "make dist - build app binaries"
 	@echo "make image - build Docker image"
 	@echo "make run - run Docker image"
 	@echo "make up - build and run Docker image (dist, image run)"
 	@echo "make login - attach /bin/bash shell to a runnning Docker container"
-	@echo "make run-rebuilder - build app automatically on file changes"
+	@echo "make rebuilder - build app automatically on file changes"
 	@echo "make clean - delete built artifacts"
 	@echo "make test - run tests"
 	@echo "make lint - run linter"
@@ -41,13 +41,13 @@ server-linux-amd64:
 	@chmod +x bin/server-linux-amd64
 clean:
 	@echo "Cleaning up artifacts"
-	@rm -f bin/*
+	@rm -f $(CURDIR)/bin/*
 ssl-certs:
-	@./generate-ssl-certs.sh
+	@$(CURDIR)/scripts/generate-ssl-certs.sh
 test:
 	@echo Running tests
 	@go test ./...
-run-rebuilder:
-	@./rebuilder/rebuilder.sh
+rebuilder:
+	@$(CURDIR)/scripts/rebuilder/rebuilder.sh
 lint:
-	@./linter.sh
+	@$(CURDIR)/scripts/linter.sh

@@ -3,7 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	test "github.com/jecklgamis/go-api-server-template/pkg/test"
+	test "github.com/jecklgamis/go-api-server-template/pkg/testing"
 	"net/http"
 	"net/http/httptest"
 	"testing"

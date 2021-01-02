@@ -14,7 +14,7 @@ RUN mkdir -p /app/config
 COPY bin/server-linux-amd64 /app/bin/server
 RUN  chmod +x /app/bin/*
 
-COPY config /app/config
+COPY configs /app/config
 COPY server.key /app
 COPY server.crt /app
 

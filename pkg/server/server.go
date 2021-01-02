@@ -12,7 +12,7 @@ import (
 )
 
 func printRoutes(router *mux.Router) {
-	log.Println("Below are the available endpoints:")
+	log.Println("Available endpoints:")
 	_ = router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
 		template, err := route.GetPathTemplate()
 		methods, _ := route.GetMethods()
@@ -36,7 +36,7 @@ func Start() {
 	router.Use(middleware.AccessLoggerMiddleware)
 	printRoutes(router)
 
-	if config.Server.HTTPS != nil {
+	if config.Server != nil && config.Server.HTTPS != nil {
 		go func() {
 			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.HTTPS.Port)
 			log.Printf("Starting HTTPS server on %s\n", addr)
@@ -49,7 +49,7 @@ func Start() {
 			log.Fatal(srv.ListenAndServeTLS(config.Server.HTTPS.CertFile, config.Server.HTTPS.KeyFile))
 		}()
 	}
-	if config.Server.HTTP != nil {
+	if config.Server != nil && config.Server.HTTP != nil {
 		go func() {
 			addr := fmt.Sprintf("0.0.0.0:%d", config.Server.HTTP.Port)
 			log.Printf("Starting HTTP server on %s\n", addr)

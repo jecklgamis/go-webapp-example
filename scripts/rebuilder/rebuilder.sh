@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-APP_DIR=${SCRIPT_DIR}/..
+APP_DIR=${SCRIPT_DIR}/../..
 
 function check_binaries() {
   if ! command -v go &>/dev/null; then
@@ -21,8 +21,6 @@ function sigint_handler() {
 trap 'sigint_handler' SIGINT
 
 check_binaries
-${SCRIPT_DIR}/test-app.sh
-${SCRIPT_DIR}/build-app.sh
-${SCRIPT_DIR}/kill-app.sh
-${SCRIPT_DIR}/run-app.sh
-fswatch -o ${APP_DIR}/pkg -o ${APP_DIR}/cmd | xargs -n1 -I{} sh -c "${SCRIPT_DIR}/build-app.sh && ${SCRIPT_DIR}/kill-app.sh && ${SCRIPT_DIR}/run-app.sh"
+${SCRIPT_DIR}/build-app.sh && ${SCRIPT_DIR}/test-app.sh && ${SCRIPT_DIR}/kill-app.sh && ${SCRIPT_DIR}/run-app.sh
+fswatch -o ${APP_DIR}/pkg -o ${APP_DIR}/cmd |
+  xargs -n1 -I{} sh -c "${SCRIPT_DIR}/build-app.sh && ${SCRIPT_DIR}/test-app.sh && ${SCRIPT_DIR}/kill-app.sh && ${SCRIPT_DIR}/run-app.sh"

@@ -1,7 +1,7 @@
 package server
 
 import (
-	test "github.com/jecklgamis/go-api-server-template/pkg/test"
+	test "github.com/jecklgamis/go-api-server-template/pkg/testing"
 	"net/http"
 	"net/http/httptest"
 	"testing"
