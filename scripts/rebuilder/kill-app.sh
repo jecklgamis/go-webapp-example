@@ -10,7 +10,7 @@ if [ -r "${PID_FILE}" ]; then
   rm -f ${PID_FILE}
 fi
 
-PID=$(ps -ef | grep "bin/gatling-server" | grep -v "grep" | awk '{ print $2 }')
+PID=$(ps -ef | grep "bin/server" | grep -v "grep" | awk '{ print $2 }')
 if [ ! -z "${PID}" ]; then
   echo "It seems process is still running, killing it anyway"
   kill -9 ${PID} > /dev/null 2>&1
