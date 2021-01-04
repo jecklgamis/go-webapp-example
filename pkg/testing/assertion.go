@@ -10,7 +10,8 @@ import (
 // Assert tests if the given condition is true, otherwise fail fatally with a given message
 func Assert(t *testing.T, condition bool, message string) {
 	if !condition {
-		Assertf(t, condition, message)
+		_, file, line, _ := runtime.Caller(1)
+		t.Fatalf("%s:%d: %s", filepath.Base(file), line, message)
 	}
 }
 
