@@ -46,7 +46,10 @@ ssl-certs:
 	@$(CURDIR)/scripts/generate-ssl-certs.sh
 test:
 	@echo Running tests
-	@go test ./...
+	@go test -short ./...
+test-all:
+	@echo Running all tests
+	@go test  ./...
 rebuilder:
 	@$(CURDIR)/scripts/rebuilder/rebuilder.sh
 lint:

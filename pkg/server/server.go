@@ -63,6 +63,7 @@ func Start() {
 			log.Printf("Version: %s\n", version.BuildVersion)
 		}()
 	}
+
 	for {
 		time.Sleep(time.Second)
 	}
