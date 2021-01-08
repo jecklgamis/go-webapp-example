@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	handler "github.com/jecklgamis/go-api-server-template/pkg/server/handler"
-	middleware "github.com/jecklgamis/go-api-server-template/pkg/server/middleware"
+	"github.com/jecklgamis/go-api-server-template/pkg/server/middleware"
 	"github.com/jecklgamis/go-api-server-template/pkg/version"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
 	"net/http"
 	"time"
@@ -23,17 +25,42 @@ func printRoutes(router *mux.Router) {
 	})
 }
 
+var (
+	httpRequestTotal = prometheus.NewCounterVec(prometheus.CounterOpts{
+		Name: "http_requests_total",
+		Help: "Total number of http requests",
+	}, []string{"code", "method"})
+
+	httpRequestDuration = prometheus.NewHistogramVec(prometheus.HistogramOpts{
+		Name: "http_request_duration_seconds",
+		Help: "Duration of all HTTP requests",
+	}, []string{"code", "handler", "method"})
+)
+
+func instrumentHandler(f http.HandlerFunc, label string) http.Handler {
+	return promhttp.InstrumentHandlerDuration(
+		httpRequestDuration.MustCurryWith(prometheus.Labels{"handler": label}),
+		promhttp.InstrumentHandlerCounter(httpRequestTotal, f))
+
+}
+
 // Start starts the HTTP server
 func Start() {
 	env := GetEnvOrElse("APP_ENVIRONMENT", "dev")
 	config := ReadConfig(env)
 	router := mux.NewRouter()
-	router.HandleFunc("/buildInfo", handler.BuildInfoHandler).Methods(http.MethodGet)
-	router.HandleFunc("/probe/ready", handler.ReadinessProbeHandler).Methods(http.MethodGet)
-	router.HandleFunc("/probe/live", handler.LivenessProbeHandler).Methods(http.MethodGet)
-	router.HandleFunc("/api", handler.APIHandler).Methods(http.MethodGet, http.MethodPost)
-	router.HandleFunc("/", handler.RootHandler).Methods(http.MethodGet)
-	router.Use(middleware.AccessLoggerMiddleware)
+
+	prometheus.DefaultRegisterer.MustRegister(httpRequestTotal)
+	prometheus.DefaultRegisterer.MustRegister(httpRequestDuration)
+
+	router.Handle("/buildInfo", instrumentHandler(handler.BuildInfoHandler, "build_info")).Methods(http.MethodGet)
+	router.Handle("/probe/ready", instrumentHandler(handler.ReadinessProbeHandler, "ready")).Methods(http.MethodGet)
+	router.Handle("/probe/live", instrumentHandler(handler.LivenessProbeHandler, "live")).Methods(http.MethodGet)
+	router.Handle("/api", instrumentHandler(handler.APIHandler, "api")).Methods(http.MethodGet, http.MethodPost)
+	router.Handle("/", instrumentHandler(handler.RootHandler, "api")).Methods(http.MethodGet)
+	router.Handle("/metrics", promhttp.Handler())
+	router.Use(server.AccessLoggerMiddleware)
+
 	printRoutes(router)
 
 	if config.Server != nil && config.Server.HTTPS != nil {

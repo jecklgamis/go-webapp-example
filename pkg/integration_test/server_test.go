@@ -42,8 +42,13 @@ func TestServerEndPoints(t *testing.T) {
 	test.Assert(t, r.StatusCode == http.StatusOK, "Unable to reach /api")
 	test.Assert(t, r.Header.Get("Content-Type") == "application/json", "Unexpected Content-Type from /api")
 
+	r, _ = http.Get(fmt.Sprintf("%s/metrics", baseURL))
+	test.Assert(t, err == nil, "Unable to send request")
+	test.Assert(t, r.StatusCode == http.StatusOK, "Unable to reach /metrics")
+
 	r, _ = http.Get(baseURL)
 	test.Assert(t, err == nil, "Unable to send request")
 	test.Assert(t, r.StatusCode == http.StatusOK, "Unable to reach /")
 	test.Assert(t, r.Header.Get("Content-Type") == "application/json", "Unexpected Content-Type from /")
+
 }

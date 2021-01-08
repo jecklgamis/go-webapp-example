@@ -9,8 +9,9 @@ If you have the toolchains installed, run `make up` to build and run the app in 
 Features:
 * Uses [gorilla mux](https://github.com/gorilla/mux) request router
 * Uses [spf13/viper](https://github.com/spf13/viper) for config management
+* Exposes [Prometheus](prometheus.io) metrics endpoint and instrumented handlers
 * Creates Docker container image based on Ubuntu
-* Contains /buildInfo, /probe/ready, /probe/live handlers  
+* Contains /buildInfo, /probe/ready, /probe/live, /metrics handlers  
 * Starts HTTP/HTTPS listeners
 * Uses environment specific config in YAML format
 
@@ -50,6 +51,7 @@ curl http://localhost:8080/buildInfo
 curl http://localhost:8080/probe/ready
 curl http://localhost:8080/probe/live
 curl http://localhost:8080/api
+curl http://localhost:8080/metrics
 ```
 
 ## Configuration

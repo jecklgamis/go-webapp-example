@@ -12,7 +12,8 @@ default:
 	@echo "make login - attach /bin/bash shell to a runnning Docker container"
 	@echo "make rebuilder - build app automatically on file changes"
 	@echo "make clean - delete built artifacts"
-	@echo "make test - run tests"
+	@echo "make test - run tests (short tests)"
+	@echo "make test-all - run all tests"
 	@echo "make lint - run linter"
 	@echo "make ssl-certs - generate self-signed certificates"
 	@echo "See Makefile for details or to add your own target"
@@ -42,6 +43,7 @@ server-linux-amd64:
 clean:
 	@echo "Cleaning up artifacts"
 	@rm -f $(CURDIR)/bin/*
+	@go clean --testcache
 ssl-certs:
 	@$(CURDIR)/scripts/generate-ssl-certs.sh
 test:
