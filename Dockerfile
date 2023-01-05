@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 MAINTAINER Jerrico Gamis <jecklgamis@gmail.com>
 
 RUN apt-get update -y
