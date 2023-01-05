@@ -3,7 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	test "github.com/jecklgamis/go-api-server-template/pkg/testing"
+	test "github.com/jecklgamis/go-api-server-example/pkg/testing"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -23,6 +23,6 @@ func TestRootHandler(t *testing.T) {
 
 	var entity map[string]string
 	json.Unmarshal(rr.Body.Bytes(), &entity)
-	test.Assert(t, entity["name"] == "go-api-server-template", "Unexpected name")
+	test.Assert(t, entity["name"] == "go-api-server-example", "Unexpected name")
 	test.Assert(t, entity["message"] == "It works on my machine!", fmt.Sprintf("Unexpected message : %s", entity["message"]))
 }

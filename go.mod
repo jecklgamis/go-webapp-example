@@ -1,4 +1,4 @@
-module github.com/jecklgamis/go-api-server-template
+module github.com/jecklgamis/go-api-server-example
 
 go 1.12
 

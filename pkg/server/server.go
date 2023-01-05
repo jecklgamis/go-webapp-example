@@ -3,9 +3,9 @@ package server
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	handler "github.com/jecklgamis/go-api-server-template/pkg/server/handler"
-	"github.com/jecklgamis/go-api-server-template/pkg/server/middleware"
-	"github.com/jecklgamis/go-api-server-template/pkg/version"
+	handler "github.com/jecklgamis/go-api-server-example/pkg/server/handler"
+	"github.com/jecklgamis/go-api-server-example/pkg/server/middleware"
+	"github.com/jecklgamis/go-api-server-example/pkg/version"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"log"
