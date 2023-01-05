@@ -3,13 +3,17 @@ module github.com/jecklgamis/go-api-server-template
 go 1.12
 
 require (
-	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/gorilla/mux v1.8.0
-	github.com/prometheus/client_golang v0.9.3
-	github.com/spf13/viper v1.7.1
-	golang.org/x/sys v0.0.0-20200930185726-fdedc70b468f // indirect
-	golang.org/x/text v0.3.3 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/yaml.v2 v2.3.0 // indirect
+	github.com/magiconair/properties v1.8.7 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
+	github.com/prometheus/client_golang v1.14.0
+	github.com/prometheus/common v0.39.0 // indirect
+	github.com/prometheus/procfs v0.9.0 // indirect
+	github.com/spf13/afero v1.9.3 // indirect
+	github.com/spf13/viper v1.14.0
+	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
+	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/text v0.6.0 // indirect
+	golang.org/x/tools v0.5.0 // indirect
 )

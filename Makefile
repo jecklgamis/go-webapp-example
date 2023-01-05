@@ -30,6 +30,9 @@ login:
 install-deps:
 	@@go get -u github.com/gorilla/mux
 	@go get -u golang.org/x/lint/golint
+update-modules:
+	go get -u ./...
+	go mod tidy
 LD_FLAGS:="-X github.com/jecklgamis/go-api-server-template/pkg/version.BuildVersion=$(BUILD_VERSION) \
 		  -X github.com/jecklgamis/go-api-server-template/pkg/version.BuildBranch=$(BUILD_BRANCH)"
 server: server-linux-amd64
