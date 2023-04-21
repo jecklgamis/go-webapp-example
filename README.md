@@ -1,10 +1,10 @@
-## go-api-server-example
+## go-http-server-example
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/jecklgamis/go-api-server-example)](https://goreportcard.com/report/github.com/jecklgamis/go-api-server-example)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jecklgamis/go-http-server-example)](https://goreportcard.com/report/github.com/jecklgamis/go-http-server-example)
 
 This is an HTTP API server template app written using Go.
 
-Docker : `docker run -p 8080:8080 -it jecklgamis/go-api-server-example:main`
+Docker : `docker run -p 8080:8080 -it jecklgamis/go-http-server-example:main`
 
 Features:
 
@@ -34,7 +34,7 @@ This will:
 * Run all tests
 * Build server binaries in `bin` (one for the OS you're building on and one for Linux AMD64 platform to be used inside
   the Docker image)
-* Build Docker image `jecklgamis/go-api-server-example`
+* Build Docker image `jecklgamis/go-http-server-example`
 
 Explore the `Makefile` or simply type `make` in the current directory for commonly used tasks.
 
@@ -117,7 +117,7 @@ This will run all `*_test.go` files it can find.
 
 ## Customizing
 
-* Replace all `go-api-server-example` references
+* Replace all `go-http-server-example` references
 * Replace Go module import names in the Go sources
 
 Example:

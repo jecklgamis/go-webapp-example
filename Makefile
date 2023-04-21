@@ -1,4 +1,4 @@
-IMAGE_NAME:=jecklgamis/go-api-server-example
+IMAGE_NAME:=jecklgamis/go-http-server-example
 IMAGE_TAG:=$(shell git rev-parse HEAD)
 BUILD_BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
 BUILD_VERSION:=$(shell git rev-parse HEAD)
@@ -32,8 +32,8 @@ install-deps:
 update-modules:
 	go get -u ./...
 	go mod tidy
-LD_FLAGS:="-X github.com/jecklgamis/go-api-server-example/pkg/version.BuildVersion=$(BUILD_VERSION) \
-		  -X github.com/jecklgamis/go-api-server-example/pkg/version.BuildBranch=$(BUILD_BRANCH)"
+LD_FLAGS:="-X github.com/jecklgamis/go-http-server-example/pkg/version.BuildVersion=$(BUILD_VERSION) \
+		  -X github.com/jecklgamis/go-http-server-example/pkg/version.BuildBranch=$(BUILD_BRANCH)"
 server: server-linux-amd64
 	@echo "Building $@"
 	@go build -ldflags $(LD_FLAGS) -o bin/server cmd/server/server.go
