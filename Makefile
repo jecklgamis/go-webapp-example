@@ -29,7 +29,6 @@ login:
 	@docker exec -it `docker ps | grep $(IMAGE_NAME) | awk '{print $$1}'` /bin/bash
 install-deps:
 	@@go get -u github.com/gorilla/mux
-	@go get -u golang.org/x/lint/golint
 update-modules:
 	go get -u ./...
 	go mod tidy
