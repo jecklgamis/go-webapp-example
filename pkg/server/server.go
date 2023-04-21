@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	handler "github.com/jecklgamis/go-http-server-example/pkg/server/handler"
+	"github.com/jecklgamis/go-http-server-example/pkg/server/middleware"
 	"github.com/jecklgamis/go-http-server-example/pkg/version"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
