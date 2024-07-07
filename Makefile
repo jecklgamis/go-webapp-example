@@ -1,4 +1,4 @@
-IMAGE_NAME:=jecklgamis/go-webapp-example
+IMAGE_NAME:=go-webapp-example
 IMAGE_TAG:=$(shell git rev-parse HEAD)
 BUILD_BRANCH:=$(shell git rev-parse --abbrev-ref HEAD)
 BUILD_VERSION:=$(shell git rev-parse HEAD)
