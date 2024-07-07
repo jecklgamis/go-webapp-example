@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jecklgamis/go-http-server-example/pkg/server"
+	"github.com/jecklgamis/go-webapp-example/pkg/server"
 )
 
 func main() {

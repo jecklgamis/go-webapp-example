@@ -3,7 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
-	test "github.com/jecklgamis/go-http-server-example/pkg/testing"
+	test "github.com/jecklgamis/go-webapp-example/pkg/testing"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -22,6 +22,6 @@ func TestApiHandler(t *testing.T) {
 
 	var entity map[string]string
 	json.Unmarshal(rr.Body.Bytes(), &entity)
-	test.Assert(t, entity["name"] == "go-http-server-example", "Unexpected name")
+	test.Assert(t, entity["name"] == "go-webapp-example", "Unexpected name")
 	test.Assert(t, entity["message"] == "You have reached the /api endpoint!", "Unexpeted message")
 }

@@ -2,9 +2,9 @@ package server_test
 
 import (
 	"fmt"
-	it "github.com/jecklgamis/go-http-server-example/pkg/integration_test"
-	"github.com/jecklgamis/go-http-server-example/pkg/server"
-	test "github.com/jecklgamis/go-http-server-example/pkg/testing"
+	it "github.com/jecklgamis/go-webapp-example/pkg/integration_test"
+	"github.com/jecklgamis/go-webapp-example/pkg/server"
+	test "github.com/jecklgamis/go-webapp-example/pkg/testing"
 	"github.com/spf13/viper"
 	"net/http"
 	"os"

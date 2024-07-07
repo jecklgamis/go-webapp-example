@@ -1,4 +1,4 @@
-module github.com/jecklgamis/go-http-server-example
+module github.com/jecklgamis/go-webapp-example
 
 go 1.12
 
