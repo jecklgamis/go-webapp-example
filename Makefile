@@ -7,20 +7,18 @@ default:
 	@echo "Makefile targets"
 	@echo "make build - build app binary"
 	@echo "make image - build Docker image"
+	@echo "make run run Docker image"
 	@echo "make up - build and run Docker image"
-	@echo "make run - run Docker image"
 	@echo "make rebuilder - build app automatically on file changes"
 	@echo "make clean - delete built artifacts"
 	@echo "make test - run tests (short tests)"
 	@echo "make test-all - run all tests"
 	@echo "See Makefile for details or to add your own target"
 build: lint clean test server ssl-certs
-up: build image run-docker
+up: build image run
 image:
 	@docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
 run:
-	./bin/server
-run-docker:
 	@docker run -p 8080:8080 -p 8443:8443 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
 run-docker-shell:
 	@docker run -i -t $(IMAGE_NAME)/$(IMAGE_TAG) /bin/bash

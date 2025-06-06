@@ -25,16 +25,15 @@ Features:
 ## Building
 
 ```
-make install-deps
-make dist image
+make build
 ```
 
 This will:
 
 * Run all tests
-* Build server binaries in `bin` (one for the OS you're building on and one for Linux AMD64 platform to be used inside
+* Build server binary in `bin` (one for the OS you're building on and one for Linux AMD64 platform to be used inside
   the Docker image)
-* Build Docker image `jecklgamis/go-webapp-example`
+* Build Docker image `go-webapp-example:<current-branch>`
 
 Explore the `Makefile` or simply type `make` in the current directory for commonly used tasks.
 
@@ -46,7 +45,7 @@ Run the server using the native binary:
 $ bin/server
 ```
 
-Run the server using the Docker container:
+Run the server using Docker:
 
 ```
 make run
