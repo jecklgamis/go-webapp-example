@@ -2,7 +2,7 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/jecklgamis/go-webapp-example)](https://goreportcard.com/report/github.com/jecklgamis/go-webapp-example)
 
-This is an HTTP API server template app written using Go.
+This is a skeleton HTTP API server app written in Go.
 
 Docker : `docker run -p 8080:8080 -it jecklgamis/go-webapp-example:main`
 
@@ -11,8 +11,8 @@ Features:
 * Uses [gorilla mux](https://github.com/gorilla/mux) request router
 * Uses [spf13/viper](https://github.com/spf13/viper) for config management
 * Exposes [Prometheus](prometheus.io) metrics endpoint and instrumented handlers
-* Creates Docker container image based on Ubuntu
-* Contains /buildInfo, /probe/ready, /probe/live, /metrics handlers
+* Ubuntu-based Docker image
+* Exposes /buildInfo, /probe/ready, /probe/live, /metrics handlers
 * Starts HTTP/HTTPS listeners
 * Uses environment specific config in YAML format
 

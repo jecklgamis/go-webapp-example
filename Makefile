@@ -5,27 +5,27 @@ BUILD_VERSION:=$(shell git rev-parse HEAD)
 
 default:
 	@echo "Makefile targets"
-	@echo "make dist - build app binaries"
+	@echo "make build - build app binary"
 	@echo "make image - build Docker image"
+	@echo "make up - build and run Docker image"
 	@echo "make run - run Docker image"
-	@echo "make up - build and run Docker image (dist, image run)"
 	@echo "make rebuilder - build app automatically on file changes"
 	@echo "make clean - delete built artifacts"
 	@echo "make test - run tests (short tests)"
 	@echo "make test-all - run all tests"
 	@echo "See Makefile for details or to add your own target"
-dist: lint clean test server ssl-certs
-up: dist image run
+build: lint clean test server ssl-certs
+up: build image run-docker
 image:
 	@docker build -t $(IMAGE_NAME)/$(IMAGE_TAG) .
 run:
+	./bin/server
+run-docker:
 	@docker run -p 8080:8080 -p 8443:8443 -i -t $(IMAGE_NAME)/$(IMAGE_TAG)
-run-bash:
+run-docker-shell:
 	@docker run -i -t $(IMAGE_NAME)/$(IMAGE_TAG) /bin/bash
-login:
+exec-docker-shell:
 	@docker exec -it `docker ps | grep $(IMAGE_NAME) | awk '{print $$1}'` /bin/bash
-install-deps:
-	@@go get -u github.com/gorilla/mux
 update-modules:
 	go get -u ./...
 	go mod tidy
