@@ -9,13 +9,10 @@ default:
 	@echo "make image - build Docker image"
 	@echo "make run - run Docker image"
 	@echo "make up - build and run Docker image (dist, image run)"
-	@echo "make login - attach /bin/bash shell to a runnning Docker container"
 	@echo "make rebuilder - build app automatically on file changes"
 	@echo "make clean - delete built artifacts"
 	@echo "make test - run tests (short tests)"
 	@echo "make test-all - run all tests"
-	@echo "make lint - run linter"
-	@echo "make ssl-certs - generate self-signed certificates"
 	@echo "See Makefile for details or to add your own target"
 dist: lint clean test server ssl-certs
 up: dist image run
@@ -54,6 +51,8 @@ test:
 test-all:
 	@echo Running all tests
 	@go test  ./...
+
+.PHONY: rebuilder
 rebuilder:
 	@$(CURDIR)/scripts/rebuilder/rebuilder.sh
 lint:
