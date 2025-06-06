@@ -1,5 +1,7 @@
 ## go-webapp-example
 
+[![Build](https://github.com/jecklgamis/go-webapp-example/actions/workflows/build.yml/badge.svg)](https://github.com/jecklgamis/go-webapp-example/actions/workflows/build.yml)
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/jecklgamis/go-webapp-example)](https://goreportcard.com/report/github.com/jecklgamis/go-webapp-example)
 
 This is a skeleton HTTP API server app written in Go.
