@@ -67,7 +67,7 @@ curl http://localhost:8080/metrics
 ## Configuration
 
 The `config/config-<env>.yml` contains the environment specific configuration. The config file is selected based on
-the `APP_ENVIRONMENT` variable and is `dev` by default.
+the `APP_ENV` variable and is `dev` by default.
 
 ## Docker Image Namespace
 

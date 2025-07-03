@@ -46,7 +46,7 @@ func instrumentHandler(f http.HandlerFunc, label string) http.Handler {
 
 // Start starts the HTTP server
 func Start() {
-	env := GetEnvOrElse("APP_ENVIRONMENT", "dev")
+	env := GetEnvOrElse("APP_ENV", "dev")
 	config := ReadConfig(env)
 	router := mux.NewRouter()
 

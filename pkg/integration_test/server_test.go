@@ -12,7 +12,7 @@ import (
 )
 
 func TestServerEndPoints(t *testing.T) {
-	os.Setenv("APP_ENVIRONMENT", "dev")
+	os.Setenv("APP_ENV", "dev")
 	port := it.UnusedPort()
 	if testing.Short() {
 		t.Skip()
