@@ -1,0 +1,6 @@
+apiVersion: v2
+name: go-webapp-example
+description: A Go web app template
+type: application
+version: 1.0.0-rc.1
+appVersion: "1.0.0-rc.1"
