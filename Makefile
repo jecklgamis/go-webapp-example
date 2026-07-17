@@ -13,6 +13,7 @@ default:
 	@echo "make clean - delete built artifacts"
 	@echo "make test - run tests (short tests)"
 	@echo "make test-all - run all tests"
+	@echo "make all - build everything"
 	@echo "See Makefile for details or to add your own target"
 build: lint clean test server ssl-certs
 up: build image run
@@ -55,3 +56,7 @@ rebuilder:
 	@$(CURDIR)/scripts/rebuilder/rebuilder.sh
 lint:
 	@$(CURDIR)/scripts/linter.sh
+update-deps:
+	go get -u ./...
+	go mod tidy
+all: build image
