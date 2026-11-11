@@ -129,6 +129,16 @@ import (
 )
 ```
 
+## Load Testing
+
+Load tests use [resonate](https://github.com/jecklgamis/resonate). With the app running:
+
+```bash
+brew install jecklgamis/tap/resonate
+./run-perf-tests.sh
+```
+See [perf-tests](perf-tests) for the scenarios and details.
+
 ## Contributing
 
 Sure, send pull request?

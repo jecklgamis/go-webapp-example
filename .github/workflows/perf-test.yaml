@@ -1,0 +1,29 @@
+name: Perf Test
+on:
+  workflow_dispatch:
+jobs:
+  perf-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '>=1.26.0'
+      - name: Install resonate
+        run: go install github.com/jecklgamis/resonate/cmd/resonate@latest
+      - name: Start app
+        run: |
+          nohup go run cmd/server/server.go > app.log 2>&1 &
+          for i in $(seq 1 90); do curl -sf localhost:8080/ && break; sleep 1; done
+      - name: Run load test
+        run: |
+          export PATH="$(go env GOPATH)/bin:$PATH"
+          ./run-perf-tests.sh
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perf-test-report
+          path: perf-tests/*-report.*
